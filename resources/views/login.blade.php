@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TBC Kecerdasan Buatan | Log in</title>
+  <link rel = "icon" href = {{ asset('dist/img/AdminLTELogo.png') }}  type = "image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -24,7 +25,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Login untuk memulai session kamu</p>
 
-      <form action="{{route('auth.store')}}" method="POST"  enctype="multipart/form-data">
+      <form action="{{ route('login.post') }}" method="POST"  enctype="multipart/form-data">
         @csrf
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" placeholder="Email">
@@ -63,7 +64,7 @@
         <a href="{{ url('/forgot') }}">Saya lupa password saya</a>
       </p>
       <p class="mb-0">
-        <a href="{{ url('auth.register') }}" class="text-center">Mendaftar membership baru</a>
+        <a href="{{ url('register') }}" class="text-center">Mendaftar membership baru</a>
       </p>
     </div>
     <!-- /.login-card-body -->

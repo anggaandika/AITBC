@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->string('level');
             $table->timestamps();
         });
+        $this->initializeNodes();
     }
 
     /**
@@ -27,5 +29,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+    }
+    public function initializeNodes(){
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('123'),
+            'level' => 'admin',
+        ]);
     }
 };

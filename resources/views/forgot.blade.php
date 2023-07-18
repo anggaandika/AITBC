@@ -42,10 +42,10 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="{{ url('/') }}">Login</a>
+        <a href="{{ url('login') }}">Login</a>
       </p>
       <p class="mb-0">
-        <a href="{{ url('/register') }}" class="text-center">Mendaftar membership baru</a>
+        <a href="{{ url('register') }}" class="text-center">Mendaftar membership baru</a>
       </p>
     </div>
     <!-- /.login-card-body -->

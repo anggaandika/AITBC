@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,14 @@ Route::resource('gejalapenyakit/gejala', \App\Http\Controllers\GejalaController:
 
 Route::resource('gejalapenyakit/penyakit', \App\Http\Controllers\PenyakitController::class);
 
-Route::resource('auth', \App\Http\Controllers\LoginController::class);
-
 Route::resource('gejalapenyakit', \App\Http\Controllers\GejalaPenyakitController::class);
 
 Route::resource('dashboard', \App\Http\Controllers\UserChekingPenyakit::class);
+
+Route::get('register', [LoginController::class, 'register'])->name('register');
+Route::post('auth/register', [LoginController::class, 'registerPost'])->name('register.post');
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post');
 
 Route::get('/', function () {
     return view('welcome');

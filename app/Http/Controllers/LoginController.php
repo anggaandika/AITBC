@@ -22,7 +22,7 @@ class LoginController extends Controller
         return view('login');
     }
   
-    public function store(Request $request): RedirectResponse
+    public function loginPost(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'email' => 'required|email',
@@ -31,7 +31,7 @@ class LoginController extends Controller
   
         if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed')
+                'email' => trans('signin.failed')
             ]);
         }
         $request->session()->regenerate();
@@ -43,7 +43,7 @@ class LoginController extends Controller
         return view('register');
     }
   
-    public function registers(Request $request): RedirectResponse
+    public function registerPost(Request $request): RedirectResponse
     {
         $this->validat($request, [
             'name' => 'required',
@@ -58,14 +58,14 @@ class LoginController extends Controller
             'level' => 'User'
         ]);
   
-        return redirect()->route('auth.index');
+        return redirect()->route('login');
     }
   
     public function show(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
-        return redirect()->route('auth.index');
+        return redirect()->route('login');
     }
  
     // public function profile()
