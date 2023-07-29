@@ -26,6 +26,7 @@
       <p class="login-box-msg">Mendaftar membership baru</p>
 
       <form action="{{ route('register.post') }}" method="post">
+      @csrf
         <div class="input-group mb-3">
           <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Full name">
           <div class="input-group-append">

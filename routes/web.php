@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GejalaController;
+use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\GejalaPenyakitController;
+use App\Http\Controllers\UserChekingPenyakit;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +19,21 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::resource('user', \App\Http\Controllers\UserController::class);
+Route::resource('user', UserController::class)->middleware('auth');
+Route::resource('gejalapenyakit/gejala', GejalaController::class)->middleware('auth');
+Route::resource('gejalapenyakit/penyakit', PenyakitController::class)->middleware('auth');
+Route::resource('gejalapenyakit', GejalaPenyakitController::class)->middleware('auth');
+Route::resource('home', UserChekingPenyakit::class);
 
-Route::resource('gejalapenyakit/gejala', \App\Http\Controllers\GejalaController::class);
-
-Route::resource('gejalapenyakit/penyakit', \App\Http\Controllers\PenyakitController::class);
-
-Route::resource('gejalapenyakit', \App\Http\Controllers\GejalaPenyakitController::class);
-
-Route::resource('dashboard', \App\Http\Controllers\UserChekingPenyakit::class);
-
-Route::get('register', [LoginController::class, 'register'])->name('register');
-Route::post('auth/register', [LoginController::class, 'registerPost'])->name('register.post');
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post');
+Route::get('register', [LoginController::class, 'register'])->name('register')->middleware('guest');
+Route::post('auth/register', [LoginController::class, 'registerPost'])->name('register.post')->middleware('guest');
+Route::get('login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post')->middleware('guest');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
-
-Route::get('/', function () {
-    return view('login');
-});
-
 
 Route::get('/forgot', function () {
     return view('forgot');

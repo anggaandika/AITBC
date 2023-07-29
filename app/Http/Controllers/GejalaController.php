@@ -27,13 +27,8 @@ class GejalaController extends Controller
     {
         //get posts
         $posts = Gejala::all();
-
-        if (Auth::check()) {
-            //render view with posts
-            return view('gejala.table', compact('posts'));
-        } else {
-            return redirect()->route('auth.index');
-        }
+        //render view with posts
+        return view('gejala.table', compact('posts'));
     }
 
     /**

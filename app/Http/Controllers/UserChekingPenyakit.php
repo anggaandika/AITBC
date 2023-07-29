@@ -26,17 +26,13 @@ class UserChekingPenyakit extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            //get posts
-            $posts = $data = DB::table('gejala_penyakits')
-            ->join('gejalas', 'gejalas.kode', '=', 'gejala_penyakits.gejala')
-            ->join('jenis_penyakits', 'jenis_penyakits.kode', '=', 'gejala_penyakits.penyakit')
-            ->get();
-            //render view with posts
-            return view('page.main', compact('posts'));
-        } else {
-            return redirect()->route('auth.index');
-        }
+        //get posts
+        $posts = $data = DB::table('gejala_penyakits')
+        ->join('gejalas', 'gejalas.kode', '=', 'gejala_penyakits.gejala')
+        ->join('jenis_penyakits', 'jenis_penyakits.kode', '=', 'gejala_penyakits.penyakit')
+        ->get();
+        //render view with posts
+        return view('page.main', compact('posts'));
     }
 
 }

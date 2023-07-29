@@ -3,10 +3,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('dist/img/user8-128x128.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('dist/img/avatar.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{ url('dashboard') }}" class="d-block">{{ auth()->user()->name }}</a>
+          <a href="{{ url('home') }}" class="d-block">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -23,6 +23,8 @@
               </p>
             </a>
           </li>
+          if
+          @if (auth()->user()->name == 'admin') 
           <li class="nav-header">TBC</li>
           <li class="nav-item {{(request()->segment(1) == 'gejalapenyakit') ? 'active': ''}}">
             <a class="nav-link">
@@ -91,16 +93,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">Lain - Lain</li>
-          @csrf
-          <li class="nav-item">
-            <a href="{{ route('auth.show',auth()->user()->id) }}" class="nav-link">
-              <i class="nav-icon far fa-arrow-alt-circle-right"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
+          @endif
+          {{-- <li class="nav-header">Lain - Lain</li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

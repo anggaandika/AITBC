@@ -23,14 +23,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            //get posts
-            $posts = User::all();
-            //render view with posts
-            return view('user.table', compact('posts'));
-        } else {
-            return redirect()->route('auth.index');
-        }
+        //get posts
+        $posts = User::all();
+        //render view with posts
+        return view('user.table', compact('posts'));
     }
 
     /**

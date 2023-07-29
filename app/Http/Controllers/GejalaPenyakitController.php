@@ -26,12 +26,8 @@ class GejalaPenyakitController extends Controller
     {
         //get posts
         $posts = GejalaPenyakit::all();
-        if (Auth::check()) {
-            //render view with posts
-            return view('gejalapenyakit.table', compact('posts'));
-        } else {
-            return redirect()->route('auth.index');
-        }
+        //render view with posts
+        return view('gejalapenyakit.table', compact('posts'));
     }
         /**
      * create
