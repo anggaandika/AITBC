@@ -26,13 +26,20 @@ class UserChekingPenyakit extends Controller
      */
     public function index()
     {
+        return view('page.main');
+    }
+
+    /**
+     * index
+     *
+     * @return View
+     */
+    public function konsultasi()
+    {
         //get posts
-        $posts = $data = DB::table('gejala_penyakits')
-        ->join('gejalas', 'gejalas.kode', '=', 'gejala_penyakits.gejala')
-        ->join('jenis_penyakits', 'jenis_penyakits.kode', '=', 'gejala_penyakits.penyakit')
-        ->get();
+        $posts = Gejala::all();
         //render view with posts
-        return view('page.main', compact('posts'));
+        return view('pu.table', compact('posts'));
     }
 
 }

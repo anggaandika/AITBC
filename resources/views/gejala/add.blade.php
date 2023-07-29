@@ -18,7 +18,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">nama</label>
-                            <input type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  id="exampleInputName1" placeholde r="Enter name pengguna">
+                            <input type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  id="exampleInputName1" placeholde r="Enter name Gejala">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputBobot">Bobot</label>
+                            <input type="name" class="form-control @error('bobot') is-invalid @enderror" name="bobot" value="{{ old('bobot') }}"  id="exampleInputBobot" placeholde r="Enter Gejala">
                         </div>
                     </div>
                         <!-- /.card-body -->

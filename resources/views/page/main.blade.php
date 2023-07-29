@@ -584,7 +584,11 @@
             <h1>Tempat Form</h1>
         @endif
             @else
-            <h1>Pembukaan</h1>
+            <div class="container">
+                <div class="col-lg-6">
+                  <h1>Pembukaan</h1>
+                </div>
+            </div>
         @endauth
         <!-- Main row -->
         

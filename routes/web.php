@@ -23,13 +23,16 @@ Route::resource('user', UserController::class)->middleware('auth');
 Route::resource('gejalapenyakit/gejala', GejalaController::class)->middleware('auth');
 Route::resource('gejalapenyakit/penyakit', PenyakitController::class)->middleware('auth');
 Route::resource('gejalapenyakit', GejalaPenyakitController::class)->middleware('auth');
-Route::resource('home', UserChekingPenyakit::class);
 
 Route::get('register', [LoginController::class, 'register'])->name('register')->middleware('guest');
 Route::post('auth/register', [LoginController::class, 'registerPost'])->name('register.post')->middleware('guest');
 Route::get('login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post')->middleware('guest');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('home', [UserChekingPenyakit::class, 'index'])->name('home');
+Route::get('home/konsultasi', [UserChekingPenyakit::class, 'konsultasi'])->name('konsultasi');
+Route::resource('home/kontak', UserChekingPenyakit::class);
 
 Route::get('/', function () {
     return redirect('home');

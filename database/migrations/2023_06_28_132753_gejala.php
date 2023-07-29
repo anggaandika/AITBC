@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('gejalas', function (Blueprint $table) {
             $table->string('kode', 30)->primary();
             $table->string('name');
+            $table->double('bobot', 15, 8)->nullable()->default(123.4567);
             $table->timestamps();
         });
     }

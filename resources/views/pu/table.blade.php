@@ -1,38 +1,34 @@
 @extends('home')
 @section('contents')
   <section class="content">
-    <div class="container-fluid">
+    <div class="container">
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">{{ucfirst(Request::segment(1))}}</h3>
                 <div class="card-tools">
                   <button onclick="location.href='{{route('user.create')}}'" type="button" class="btn btn-tool">
-                    Tambah 
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-save"></i>
+                    <b>Mengecek</b>
                   </button>
                 </div>  
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example2" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Create</th>
-                    <th>Update</th>
+                    <th>Kode</th>
+                    <th>Gejala</th>
+                    <th align="center">Jika Iya</th>
                   </tr>
                   </thead>
                   <tbody>  
                   @forelse ($posts as $post)
                     <tr>
-                      <td>{{$post->name}}</td>
-                      <td>{{$post->email}}</td>
-                      <td>{{$post->password}}</td>
-                      <td>{{$post->created_at}}</td>
-                      <td>{{$post->updated_at}}</td>
+                      <td><input type="text" style="border-color: transparent" name="kode" value={{$post->kode}} disabled> </td>
+                      <td><input type="text" style="border-color: transparent" name="gejala" value={{$post->name}} disabled></td>
+                      <td align="center"><input type="checkbox" name="iya"></td>
                     </tr>                  
                   @empty
                   <div class="alert alert-danger">
@@ -42,11 +38,9 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Create</th>
-                    <th>Update</th>
+                    <th>Kode</th>
+                    <th>Gejala</th>
+                    <th align="center">Jika Iya</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -61,6 +55,7 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+  
   <script>
     //message with toastr
     @if(session()->has('success'))
