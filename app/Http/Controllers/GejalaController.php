@@ -52,8 +52,9 @@ class GejalaController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'kode'     => 'required|min:1',
-            'name'     => 'required|min:1',
+            'kode'     => 'required|min:2',
+            'name'     => 'required|min:2',
+            'bobot'     => 'required|min:1',
         ]);
 
         //create post
@@ -61,6 +62,7 @@ class GejalaController extends Controller
             // 'image'     => $image->hashName(),
             'kode'     => $request->kode,
             'name'     => $request->name,
+            'bobot'     => $request->bobot,
         ]);
 
         //redirect to index
