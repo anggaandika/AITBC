@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data Gejala Table</h3>
+                <h3 class="card-title">DataTable Gejala</h3>
                 <div class="card-tools">
                   <button onclick="location.href='{{route('gejala.create')}}'" type="button" class="btn btn-tool">
                     Tambah 

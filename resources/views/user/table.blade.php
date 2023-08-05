@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data User Table</h3>
+                <h3 class="card-title">DataTable User</h3>
                 <div class="card-tools">
                   <button onclick="location.href='{{route('user.create')}}'" type="button" class="btn btn-tool">
                     Tambah 

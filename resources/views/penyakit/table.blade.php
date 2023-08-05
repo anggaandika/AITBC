@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">DataTable Penyakit</h3>
                 <div class="card-tools">
                   <button onclick="location.href='{{route('penyakit.create')}}'" type="button" class="btn btn-tool">
                     Tambah 
@@ -45,7 +45,7 @@
                       </tr>                  
                     @empty
                     <div class="alert alert-danger">
-                        Data gejala belum Tersedia.
+                        Data Penyakit belum Tersedia.
                     </div>
                     @endforelse
                     </tbody>

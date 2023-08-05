@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 //import Model "User
-use App\Models\GejalaPenyakit;
-use App\Models\JenisPenyakit;
+use App\Models\Penyakit;
 use App\Models\Gejala;
+use App\Models\Kasus;
 use DB;
 //return type View
 use Illuminate\View\View;
@@ -34,12 +34,20 @@ class UserChekingPenyakit extends Controller
      *
      * @return View
      */
+    
+     public function informasi()
+     {
+         //get posts
+        $posts = Kasus::all();
+         //render view with posts
+         return view('page.table', compact('posts'));
+     }
     public function konsultasi()
     {
         //get posts
         $posts = Gejala::all();
         //render view with posts
-        return view('pu.table', compact('posts'));
+        return view('page.table', compact('posts'));
     }
 
 }

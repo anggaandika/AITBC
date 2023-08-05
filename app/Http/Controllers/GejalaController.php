@@ -27,8 +27,9 @@ class GejalaController extends Controller
     {
         //get posts
         $posts = Gejala::all();
+        $uri = 'gejala';
         //render view with posts
-        return view('gejala.table', compact('posts'));
+        return view('gejala.table', compact(['posts', 'uri']));
     }
 
     /**

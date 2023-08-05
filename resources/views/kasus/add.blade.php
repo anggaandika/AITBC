@@ -9,7 +9,7 @@
                         <h3 class="card-title">Input Data Gejala Penyakit</h3>
                     </div>
                     <!-- form start -->
-                    <form action="{{route('gejalapenyakit.store')}}" method="POST"  enctype="multipart/form-data">
+                    <form action="{{route('kasus.store')}}" method="POST"  enctype="multipart/form-data">
                         @csrf
                     <div class="card-body">
                         <div class="form-group">

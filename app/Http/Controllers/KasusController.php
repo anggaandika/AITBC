@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 //import Model "User
-use App\Models\GejalaPenyakit;
-use App\Models\JenisPenyakit;
+use App\Models\Penyakit;
 use App\Models\Gejala;
+use App\Models\Kasus;
 
 use App\Http\Controllers\Controller;
 //return type redirectResponse
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-class GejalaPenyakitController extends Controller
+class KasusController extends Controller
 {    
     //
     /**
@@ -25,9 +25,9 @@ class GejalaPenyakitController extends Controller
     public function index()
     {
         //get posts
-        $posts = GejalaPenyakit::all();
+        $posts = Kasus::all();
         //render view with posts
-        return view('gejalapenyakit.table', compact('posts'));
+        return view('kasus.table', compact('posts'));
     }
         /**
      * create
@@ -37,8 +37,8 @@ class GejalaPenyakitController extends Controller
     public function create()
     {
         $gejalas = Gejala::all();
-        $penyakits = JenisPenyakit::all();
-        return view('gejalapenyakit.add', compact('gejalas','penyakits'));
+        $penyakits = Penyakit::all();
+        return view('kasus.add', compact('gejalas','penyakits'));
     }
     
     /**
@@ -56,13 +56,13 @@ class GejalaPenyakitController extends Controller
         ]);
 
         //create post
-        GejalaPenyakit::create([
+        Kasus::create([
             'penyakit'     => $request->penyakit,
             'gejala'     => $request->gejala,
         ]);
 
         //redirect to index
-        return redirect()->route('gejalapenyakit.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('kasus.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     
     /**
@@ -73,11 +73,13 @@ class GejalaPenyakitController extends Controller
      */
     public function edit(string $kode): View
     {
+        $gejalas = Gejala::all();
+        $penyakits = Penyakit::all();
         //get post by ID
-        $post = GejalaPenyakit::where('kode', $kode)->firstorfail();
+        $post = Kasus::where('kode', $kode)->firstorfail();
 
         //render view with post
-        return view('gejalapenyakit.edit', compact('post'));
+        return view('kasus.edit', compact('post','gejalas','penyakits'));
     }
     
     /**
@@ -96,21 +98,21 @@ class GejalaPenyakitController extends Controller
         ]);
 
         //get post by ID
-        GejalaPenyakit::where('kode', $kode)->update([
+        Kasus::where('kode', $kode)->update([
             'penyakit'     => $request->penyakit,
             'gejala'     => $request->gejala,
         ]);
         //redirect to index
-        return redirect()->route('gejalapenyakit.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('kasus.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     public function destroy($kode): RedirectResponse
     {
         //get post by ID delete post
-        GejalaPenyakit::where('id', $kode)->delete();
+        Kasus::where('id', $kode)->delete();
 
         //redirect to index
-        return redirect()->route('gejalapenyakit.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('gejalakasuspenyakit.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
     
     public function check()

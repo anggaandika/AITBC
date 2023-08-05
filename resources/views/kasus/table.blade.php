@@ -5,9 +5,9 @@
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">DataTable Kasus</h3>
                 <div class="card-tools">
-                  <button onclick="location.href='{{route('gejalapenyakit.create')}}'" type="button" class="btn btn-tool">
+                  <button onclick="location.href='{{route('kasus.create')}}'" type="button" class="btn btn-tool">
                     Tambah 
                     <i class="fas fa-plus"></i>
                   </button>
@@ -31,8 +31,8 @@
                       <td>{{$post->penyakit}}</td>
                       <td>{{$post->gejala}}</td>
                       <td>
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('gejala.destroy', $post->id) }}" method="POST">
-                          <button onclick="location.href='{{route('gejala.edit', $post->id)}}'" type="button" class=" btn btn-tool">
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('kasus.destroy', $post->id) }}" method="POST">
+                          <button onclick="location.href='{{route('kasus.edit', $post->id)}}'" type="button" class=" btn btn-tool">
                             edit 
                             <i class="fas fa-edit"></i>
                           </button>
@@ -47,7 +47,7 @@
                     </tr>                  
                   @empty
                   <div class="alert alert-danger">
-                      Data Post belum Tersedia.
+                      Data Kasus belum Tersedia.
                   </div>
                   @endforelse
                   </tbody>

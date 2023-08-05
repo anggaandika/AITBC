@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\PenyakitController;
-use App\Http\Controllers\GejalaPenyakitController;
+use App\Http\Controllers\KasusController;
 use App\Http\Controllers\UserChekingPenyakit;
 
 /*
@@ -19,31 +19,24 @@ use App\Http\Controllers\UserChekingPenyakit;
 |
 */
 
-Route::resource('user', UserController::class)->middleware('auth');
-Route::resource('gejalapenyakit/gejala', GejalaController::class)->middleware('auth');
-Route::resource('gejalapenyakit/penyakit', PenyakitController::class)->middleware('auth');
-Route::resource('gejalapenyakit', GejalaPenyakitController::class)->middleware('auth');
+Route::resource('user', UserController::class)->middleware('admin');
+Route::resource('gejala', GejalaController::class)->middleware('auth');
+Route::resource('penyakit', PenyakitController::class)->middleware('auth');
+Route::resource('kasus', KasusController::class)->middleware('auth');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('register', [LoginController::class, 'register'])->name('register')->middleware('guest');
 Route::post('auth/register', [LoginController::class, 'registerPost'])->name('register.post')->middleware('guest');
 Route::get('login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post')->middleware('guest');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Route::get('home', [UserChekingPenyakit::class, 'index'])->name('home');
-Route::get('home/konsultasi', [UserChekingPenyakit::class, 'konsultasi'])->name('konsultasi');
-Route::resource('home/kontak', UserChekingPenyakit::class);
+Route::get('konsultasi', [UserChekingPenyakit::class, 'konsultasi'])->name('konsultasi');
+Route::get('informasi', [UserChekingPenyakit::class, 'informasi'])->name('informasi');
 
 Route::get('/', function () {
     return redirect('home');
-});
-
-Route::get('/forgot', function () {
-    return view('forgot');
-});
-
-Route::get('/home', function () {
-    return view('page/main');
 });
 
 Route::get('/welcome', function () {

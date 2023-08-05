@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 //import Model "User
-use App\Models\JenisPenyakit;
+use App\Models\Penyakit;
 
 //return type View
 use Illuminate\View\View;
@@ -26,7 +26,7 @@ class PenyakitController extends Controller
     public function index()
     {
         //get posts
-        $posts = JenisPenyakit::all();
+        $posts = Penyakit::all();
         //render view with posts
         return view('penyakit.table', compact('posts'));
     }
@@ -53,13 +53,17 @@ class PenyakitController extends Controller
         $this->validate($request, [
             'kode'     => 'required|min:1',
             'name'     => 'required|min:1',
+            'deskripsi'     => 'required|min:1',
+            'solusi'     => 'required|min:1',
         ]);
 
         //create post
-        JenisPenyakit::create([
+        Penyakit::create([
             // 'image'     => $image->hashName(),
             'kode'     => $request->kode,
             'name'     => $request->name,
+            'deskipsi'     => $request->deskripsi,
+            'solusi'     => $request->solusi,
         ]);
 
         //redirect to index
@@ -75,7 +79,7 @@ class PenyakitController extends Controller
     public function edit(string $kode): View
     {
         //get post by ID
-        $post = JenisPenyakit::where('kode', $kode)->firstorfail();
+        $post = Penyakit::where('kode', $kode)->firstorfail();
 
         //render view with post
         return view('penyakit.edit', compact('post'));
@@ -97,7 +101,7 @@ class PenyakitController extends Controller
         ]);
 
         //get post by ID
-        $post = JenisPenyakit::where('kode', $kode)->update([
+        $post = Penyakit::where('kode', $kode)->update([
             'kode'     => $request->kode,
             'name'     => $request->name,
         ]);
@@ -109,7 +113,7 @@ class PenyakitController extends Controller
     public function destroy($kode): RedirectResponse
     {
         //get post by ID delete post
-        $post = JenisPenyakit::where('kode', $kode)->delete();
+        $post = Penyakit::where('kode', $kode)->delete();
 
         //redirect to index
         return redirect()->route('penyakit.index')->with(['success' => 'Data Berhasil Dihapus!']);

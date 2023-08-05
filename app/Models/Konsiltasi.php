@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GejalaPenyakit extends Model
+class konsultasi extends Model
 {
     use HasFactory;
     /**
@@ -14,7 +14,7 @@ class GejalaPenyakit extends Model
      * @var array
      */
     protected $fillable = [
+        'user',
         'penyakit',
-        'gejala',
     ];
 }
