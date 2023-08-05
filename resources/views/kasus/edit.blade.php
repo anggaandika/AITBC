@@ -32,6 +32,10 @@
                                 @endforelse
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputBobot">Bobot</label>
+                            <input type="text" class="form-control @error('bobot') is-invalid @enderror" name="bobot" value="{{ old('bobot',$post->bobot) }}"  id="exampleInputBobot" placeholde r="Enter Gejala">
+                        </div>
                     </div>
                         <!-- /.card-body -->
                         <div class="card-footer">

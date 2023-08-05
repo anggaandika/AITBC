@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('solusi');
             $table->timestamps();
         });
+        $this->initializeNodes();
     }
 
     /**
@@ -26,6 +27,21 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penyakit');
+        Schema::dropIfExists('penyakits');
+    }
+
+    
+    public function initializeNodes(){
+        DB::table('penyakits')->insert([[
+            'kode' => 'P123',
+            'name' => 'TBC A',
+            'deskipsi' => 'CASFF',
+            'solusi' => 'VGSERTB',
+        ],[
+            'kode' => 'P124',
+            'name' => 'TBC E',
+            'deskipsi' => 'CEVRCG',
+            'solusi' => 'VRHEBY',
+        ]]);
     }
 };

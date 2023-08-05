@@ -21,6 +21,7 @@
                     <th>Id</th>
                     <th>Penyakit</th>
                     <th>Gejala</th>
+                    <th>Bobot</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -30,6 +31,7 @@
                       <td>{{$post->id}}</td>
                       <td>{{$post->penyakit}}</td>
                       <td>{{$post->gejala}}</td>
+                      <td>{{$post->bobot}}</td>
                       <td>
                         <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('kasus.destroy', $post->id) }}" method="POST">
                           <button onclick="location.href='{{route('kasus.edit', $post->id)}}'" type="button" class=" btn btn-tool">
@@ -56,6 +58,7 @@
                     <th>Id</th>
                     <th>Penyakit</th>
                     <th>Gejala</th>
+                    <th>Bobot</th>
                     <th>Action</th>
                   </tr>
                   </tfoot>

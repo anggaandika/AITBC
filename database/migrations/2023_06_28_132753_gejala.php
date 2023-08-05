@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('gejalas', function (Blueprint $table) {
             $table->string('kode', 30)->primary();
             $table->string('name');
-            $table->double('bobot', 15, 8)->nullable()->default(123.4567);
             $table->timestamps();
         });
+        $this->initializeNodes();
     }
 
     /**
@@ -25,6 +25,23 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gejala');
+        Schema::dropIfExists('gejalas');
+    }
+    
+    public function initializeNodes(){
+        DB::table('gejalas')->insert(
+        [
+            [
+                'kode' => 'A209',
+                'name' => 'batuk',
+            ],[
+                'kode' => 'A210',
+                'name' => 'gatal',
+            ],[
+                'kode' => 'A212',
+                'name' => 'mata merah',
+            ]
+            ]
+        );
     }
 };

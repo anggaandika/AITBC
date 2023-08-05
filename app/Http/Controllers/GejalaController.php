@@ -54,7 +54,6 @@ class GejalaController extends Controller
         $this->validate($request, [
             'kode'     => 'required|min:2',
             'name'     => 'required|min:2',
-            'bobot'     => 'required|min:1',
         ]);
 
         //create post
@@ -62,7 +61,6 @@ class GejalaController extends Controller
             // 'image'     => $image->hashName(),
             'kode'     => $request->kode,
             'name'     => $request->name,
-            'bobot'     => $request->bobot,
         ]);
 
         //redirect to index
@@ -97,14 +95,12 @@ class GejalaController extends Controller
         $this->validate($request, [
             'kode'     => 'required|min:1',
             'name'     => 'required|min:1',
-            'bobot'     => 'required|min:1',
         ]);
 
         //get post by ID
         Gejala::where('kode', $kode)->update([
             'kode'     => $request->kode,
             'name'     => $request->name,
-            'bobot'     => $request->bobot,
         ]);
         //redirect to index
         return redirect()->route('gejala.index')->with(['success' => 'Data Berhasil Diubah!']);

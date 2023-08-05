@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TBC Kecerdasan Buatan - {{ucfirst(Request::segment(1))}}</title>
   <link rel = "icon" href = {{ asset('dist/img/AdminLTELogo.png') }}  type = "image/x-icon">
@@ -236,10 +237,14 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
+    $("#example0").DataTable({
       "responsive": true, "lengthChange": true, "autoWidth": false,"paging": true,
       "ordering": true,"info": true,"responsive": true,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": true, "autoWidth": false,"paging": true,
+      "ordering": true,"info": true,"responsive": true,
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -250,57 +255,16 @@
       "autoWidth": false,
       "responsive": true,
     });
-  });
-</script>
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $("#jsGrid1").jsGrid({
-      height: "100%",
-      width: "100%",
-
-      sorting: true,
-      paging: true,
-
-      data: db.clients,
-
-      fields: [{
-          name: "Name",
-          type: "text",
-          width: 150
-        },
-        {
-          name: "Age",
-          type: "number",
-          width: 50
-        },
-        {
-          name: "Address",
-          type: "text",
-          width: 200
-        },
-        {
-          name: "Country",
-          type: "select",
-          items: db.countries,
-          valueField: "Id",
-          textField: "Name"
-        },
-        {
-          name: "Married",
-          type: "checkbox",
-          title: "Is Married"
-        }
-      ]
+    $('#example3').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "responsive": true,
     });
   });
-
-  $('.toastsDefaultDefault').click(function() {
-      $(document).Toasts('create', {
-        title: 'Toast Title',
-        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-      })
-    });
 </script>
 </body>
 </html>

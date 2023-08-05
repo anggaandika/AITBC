@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('gejala')->index();
             $table->string('penyakit')->index();
+            $table->float('bobot', 15)->default(0.0);
             $table->timestamps();
-          
+        
             $table->foreign('gejala')->references('kode')->on('gejalas')->onDelete('cascade');
             $table->foreign('penyakit')->references('kode')->on('penyakits')->onDelete('cascade');
-          });
+        });
+        // $this->initializeNodes();
     }
 
     /**
@@ -29,6 +31,38 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kasus');
+        Schema::dropIfExists('kasuses');
+    }
+
+    public function initializeNodes(){
+        DB::table('kasuses')->insert([[
+            'gejala' => 'A209',
+            'penyakit' => 'A209',
+            'bobot' => '0.3',
+        ],[
+            'gejala' => 'A210',
+            'penyakit' => 'P124',
+            'bobot' => '0.6',
+        ],[
+            'gejala' => 'A211',
+            'penyakit' => 'P124',
+            'bobot' => '0.5',
+        ],[
+            'gejala' => 'A211',
+            'penyakit' => 'P124',
+            'bobot' => '0.5',
+        ],[
+            'gejala' => 'A210',
+            'penyakit' => 'P123',
+            'bobot' => '0.2',
+        ],[
+            'gejala' => 'A211',
+            'penyakit' => 'P123',
+            'bobot' => '0.7',
+        ],[
+            'gejala' => 'A211',
+            'penyakit' => 'P123',
+            'bobot' => '0.9',
+        ]]);
     }
 };

@@ -14,6 +14,13 @@ return new class extends Migration
         //
         Schema::create('konsultasis', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('jenis_kelamin');
+            $table->string('bb');
+            $table->string('bt');
+            $table->string('alamat');
+            $table->text('gejala_terpilih');
             $table->string('penyakit')->index();
             $table->boolean('persentase');
             $table->timestamps();

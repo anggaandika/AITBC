@@ -53,12 +53,14 @@ class KasusController extends Controller
         $this->validate($request, [
             'penyakit'     => 'required|min:1',
             'gejala'     => 'required|min:1',
+            'bobot'     => 'required|min:1',
         ]);
 
         //create post
         Kasus::create([
             'penyakit'     => $request->penyakit,
             'gejala'     => $request->gejala,
+            'bobot'     => $request->bobot,
         ]);
 
         //redirect to index
@@ -95,12 +97,14 @@ class KasusController extends Controller
         $this->validate($request, [
             'penyakit'     => 'required|min:1',
             'gejala'     => 'required|min:1',
+            'bobot'     => 'required|min:1',
         ]);
 
         //get post by ID
         Kasus::where('kode', $kode)->update([
             'penyakit'     => $request->penyakit,
             'gejala'     => $request->gejala,
+            'bobot'     => $request->bobot,
         ]);
         //redirect to index
         return redirect()->route('kasus.index')->with(['success' => 'Data Berhasil Diubah!']);

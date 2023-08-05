@@ -3,44 +3,27 @@
   <section class="content">
     <div class="container">
         <div class="col-12">
-            <div class="card">
+          <div class="card">
               <div class="card-header">
                 <h3 class="card-title">DataTable {{ucfirst(Request::segment(1))}}</h3>
                 <div class="card-tools">
-                  @if (ucfirst(Request::segment(1)) == 'Konsultasi')
-                    <button onclick="location.href='{{route('user.create')}}'" type="button" class="btn btn-tool">
-                      <i class="fas fa-save"></i>
-                      <b>Mengecek</b>
-                    </button>
-                  @endif
                 </div>  
               </div>
+              
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Kode</th>
-                    <th>Gejala</th>
-                    <th align="center">Jika Iya</th>
+                    <th>Penyakit</th>
+                    <th>Solusi</th>
                   </tr>
                   </thead>
                   <tbody>  
                   @forelse ($posts as $post)
                     <tr>
-                      @switch(Request::segment(1))
-                          @case('konsultasi')
-                                <td><input type="text" style="border-color: transparent" name="kode" value={{$post->kode}} disabled> </td>
-                                <td><input type="text" style="border-color: transparent" name="gejala" value={{$post->name}} disabled></td>
-                                <td align="center"><input type="checkbox" name="iya"></td>
-                              @break
-                          @case('informasi')
-                              <td>{{$post->kode}}</td>
-                              <td>{{$post->name}}</td>
-                              @break
-                          @default
-                              
-                      @endswitch
+                        <td>{{$post->name}}</td>
+                        <td>{{$post->solusi}}</td>
                     </tr>                  
                   @empty
                   <div class="alert alert-danger">
@@ -50,9 +33,8 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Kode</th>
-                    <th>Gejala</th>
-                    <th align="center">Jika Iya</th>
+                    <th>Penyakit</th>
+                    <th>Solusi</th>
                   </tr>
                   </tfoot>
                 </table>

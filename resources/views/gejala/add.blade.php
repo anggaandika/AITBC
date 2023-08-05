@@ -14,15 +14,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputName1">kode</label>
-                            <input type="kode" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ old('kode') }}"  id="exampleInputKode1" placeholde r="Enter kode pengguna">
+                            <input type="text" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ old('kode') }}"  id="exampleInputKode1" placeholde r="Enter kode pengguna">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">nama</label>
-                            <input type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  id="exampleInputName1" placeholde r="Enter name Gejala">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputBobot">Bobot</label>
-                            <input type="name" class="form-control @error('bobot') is-invalid @enderror" name="bobot" value="{{ old('bobot') }}"  id="exampleInputBobot" placeholde r="Enter Gejala">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  id="exampleInputName1" placeholde r="Enter name Gejala">
                         </div>
                     </div>
                         <!-- /.card-body -->
