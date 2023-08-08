@@ -16,5 +16,6 @@ class Kasus extends Model
     protected $fillable = [
         'penyakit',
         'gejala',
+        'bobot',
     ];
 }

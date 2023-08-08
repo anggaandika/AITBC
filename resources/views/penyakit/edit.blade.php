@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputName1">kode</label>
-                                <input type="kode" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ old('kode',$post->kode) }}"  id="exampleInputKode1" placeholde r="Enter kode pengguna">
+                                <input type="kode" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ old('kode',$post->kode) }}"  id="exampleInputKode1" placeholde r="Enter kode pengguna" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">nama</label>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputDeskripsi">Deskripsi</label>
-                            <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" value="{{ old('deskripsi',$post->deskripsi) }}"  id="exampleInputDeskripsi" placeholder="Input Deskripsi">
+                            <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" value="{{ old('deskripsi',$post->deskipsi) }}"  id="exampleInputDeskripsi" placeholder="Input Deskripsi">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputSolusi">Solusi</label>

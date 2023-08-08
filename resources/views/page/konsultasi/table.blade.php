@@ -28,14 +28,13 @@
                   
                   <tbody>  
                   @forelse ($posts as $key => $post)
-                  <input type="text" style="border-color: transparent" name="inputs[{{$key}}][bobot]" value="{{ old('name',$post->bobot) }}">
                     <tr>
                       <td><input type="text" style="border-color: transparent" name="inputs[{{$key}}][kode]" value="{{ old('name',$post->kode) }}"></td>
                       <td><input type="text" style="border-color: transparent" name="inputs[{{$key}}][name]" value="{{ old('name',$post->name) }}"></td>
                       <td align="center">
                       <select class="form-control" name="inputs[{{$key}}][milih]">
-                          @forelse ($bobots as $bobot)
-                              <option value="{{$bobot->id}}">{{$bobot->name}}</option>
+                          @forelse ($berats as $berat)
+                              <option value="{{$berat->bobot}}">{{$berat->name}}</option>
                               @empty
                               <option>kosong</option>
                           @endforelse

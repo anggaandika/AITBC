@@ -20,6 +20,8 @@
                     <tr>
                       <th>kode</th>
                       <th>nama</th>
+                      <th>deskripsi</th>
+                      <th>solusi</th>
                       <th>action</th>
                     </tr>
                     </thead>
@@ -28,6 +30,8 @@
                       <tr>
                         <td>{{$post->kode}}</td>
                         <td>{{$post->name}}</td>
+                        <td>{{$post->deskipsi}}</td>
+                        <td>{{$post->solusi}}</td>
                         <td>
                           <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('penyakit.destroy', $post->kode) }}" method="POST">
                             <button onclick="location.href='{{route('penyakit.edit',$post->kode)}}'" type="button" class=" btn btn-tool">
@@ -53,6 +57,8 @@
                     <tr>
                       <th>kode</th>
                       <th>nama</th>
+                      <th>deskripsi</th>
+                      <th>solusi</th>
                       <th>action</th>
                     </tr>
                     </tfoot>

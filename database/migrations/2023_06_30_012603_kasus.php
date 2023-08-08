@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('gejala')->index();
             $table->string('penyakit')->index();
-            $table->float('bobot', 15)->default(0.0);
+            $table->float('bobot', 15);
             $table->timestamps();
         
             $table->foreign('gejala')->references('kode')->on('gejalas')->onDelete('cascade');

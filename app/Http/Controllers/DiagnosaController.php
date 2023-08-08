@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class UserChekingPenyakit extends Controller
+class DiagnosaController extends Controller
 {
     
     /**
@@ -47,9 +47,9 @@ class UserChekingPenyakit extends Controller
     {
         //get posts
         $posts = Gejala::all();
-        $bobots = Bobot::all();
+        $berats = Bobot::all();
         //render view with posts
-        return view('page.konsultasi.table', compact('posts','bobots'));
+        return view('page.konsultasi.table', compact('posts','berats'));
     }
     public function datadiri(Request $request): RedirectResponse
     {
@@ -76,36 +76,30 @@ class UserChekingPenyakit extends Controller
     public function konsultasiPost(Request $request)
     {
         $result = $this->kalkulasiTBC($request->inputs);
-        //redirect to index
         dd($result);
+        //redirect to index
         return view('page.main', compact('result'));
     }
     function kalkulasiTBC($data)
     {
+        // dd($data);
         $data_penyakit = [];
         $gejala_terpilih = [];
         foreach($data as $input) {
             if(!empty($input)) {
                 $opts = $input['kode'];
-                $kasuss = Kasus::where('gejala',$opts)->get();
-                foreach ($kasuss as $kasus) {
-                    $penyakits = Penyakit::where('kode',$kasus->penyakit)->get();
-                    $gejalas = Gejala::where('kode',$kasus->gejala)->get();
-                    foreach ($penyakits as $penyakit) {
-                        if(empty($data_penyakit[$kasus->id])){
-                            $data_penyakit[$kasus->id] = [$penyakit, [$gejalas, $input['milih'], $kasus->bobot]];
-                        } else {
-                            array_push($data_penyakit[$kasus->id], [$gejalas, $input['milih'], $kasus->bobot]);
-                        }
+                $kasus = Kasus::where('gejala', $opts)->get();
+                foreach($kasus as $penyakit) {
+                    if(empty($data_penyakit[$penyakit->id])){
+                        $data_penyakit[$penyakit->id] = [$penyakit, [$kasus, $input['milih'], $penyakit->bobot]];
+                    } else {
+                        array_push($data_penyakit[$penyakit->id], [$kasus, $input['milih'], $penyakit->bobot]);
                     }
-                    foreach ($gejalas as $gejala) {
-                        if(empty($gejala_terpilih[$gejala->kode])) {
-                            $gejala_terpilih[$gejala->kode] = [
-                                'nama' => $gejala->name,
-                                'kode' => $gejala->kode,
-                                'keyakinan' => $input['milih']
-                            ];
-                        }
+                    if(empty($gejala_terpilih[$penyakit->gejala])) {
+                        $gejala_terpilih[$penyakit->gejala] = [
+                            'kode' => $penyakit->gejala,
+                            'keyakinan' => $input['milih']
+                        ];
                     }
                 }
             }
@@ -113,66 +107,35 @@ class UserChekingPenyakit extends Controller
         $hasil_diagnosa = [];
         $cf_max = null;
         foreach ($data_penyakit as $final) {
-            if(count($final) < 2) {
-                continue;
-            }
 
-            $cf1 = null;
-            $cf2 = null;
-            $cf_combine = 0;
-            $hasil_cf = null;
+            $dg1 = null;
+            $dg2 = null;
+            $dgcombine = 0;
+            $hasildg = null;
             
             foreach ($final as $key => $value) {
                 if($key == 0) {
                     continue;
                 }
                 if($key == 1) {
-                    $cf1 = $final[$key][2] * $final[$key][1];
+                    $dg1 = $final[$key][2] * $final[$key][1];
+                    $dg2 = $final[$key][2];
                 } else {
-                    if($cf_combine != 0) {
-                        $cf1 = $cf_combine;
-                        $cf2 = $final[$key][2] * $final[$key][1];
-                        if($cf1 < 0 || $cf2 < 0) {
-                            $cf_combine = ($cf1 + $cf2) / (1 - min($cf1, $cf2));
-                        } else {
-                            $cf_combine = $cf1 + ($cf2 * (1 - $cf1));
-                        }
-                        $hasil_cf = $cf_combine;
+                    if($dgcombine != 0) {
+                        $dg1 = $dg1[$key][2] +($final[$key][2] * $final[$key][1]);
+                        $dg2 = $dg2 + $final[$key][2];
                     } else {
-                        $cf2 = $final[$key][2] * $final[$key][1];
-                        if($cf1 < 0 || $cf2 < 0) {
-                            $cf_combine = ($cf1 + $cf2) / (1 - min($cf1, $cf2));
-                        } else {
-                            $cf_combine = $cf1 + ($cf2 * (1 - $cf1));
-                        }
-                        $hasil_cf = $cf_combine;
+                        $dg1 = $dg1[$key][2] +($final[$key][2] * $final[$key][1]);
+                        $dg2 = $dg2 + $final[$key][2];
                     }
-                }
-                if(count($final) - 1== $key) {
-                    if($cf_max == null) {
-                        $cf_max = [$hasil_cf, "{$final[0]->name} ({$final[0]->kode})"];
-                    } else {
-                        $cf_max = ($hasil_cf > $cf_max[0]) 
-                            ? [$hasil_cf, "{$final[0]->name} ({$final[0]->kode})"] 
-                            : $cf_max;
-                    }
-
-                    $hasil_diagnosa[$final[0]->kode]['hasil_cf'] = $hasil_cf;
-
-                    $cf1 = null;
-                    $cf2 = null;
-                    $cf_combine = 0;
-                    $hasil_cf = null;
                 }
                 
-                if(empty($hasil_diagnosa[$final[0]->kode])) {
-                    $hasil_diagnosa[$final[0]->kode] = [
-                        'nama_penyakit' => $final[0]->name,
-                        'kode_penyakit' => $final[0]->kode,
+                if(empty($hasil_diagnosa[$final[0]->id])) {
+                    $hasil_diagnosa[$final[0]->id] = [
+                        'penyakit' => $final[0]->penyakit,
                         'gejala' => [
                             [
-                                'nama' => $final[$key][0][0]->name,
-                                'kode' => $final[$key][0][0]->kode,
+                                'gejala' => $final[$key][0][0]->gejala,
                                 'cf_user' => $final[$key][1],
                                 'cf_role' => $final[$key][2],
                                 'hasil_perkalian' => $final[$key][2] * $final[$key][1]
@@ -181,8 +144,7 @@ class UserChekingPenyakit extends Controller
                     ];
                 } else {          
                     array_push($hasil_diagnosa[$final[0]->kode], [
-                        'nama' => $final[$key][0][0]->name,
-                        'kode' => $final[$key][0][0]->kode,
+                        'gejala' => $final[$key][0][0]->gejala,
                         'cf_user' => $final[$key][1],
                         'cf_role' => $final[$key][2],
                         'hasil_perkalian' => $final[$key][2] * $final[$key][1]
@@ -190,8 +152,46 @@ class UserChekingPenyakit extends Controller
                 }
             }
         }
+        // dd($hasil_diagnosa);
+        $predic_penyakit = null;
+        $predic_penyakit2 = null;
+        $hasil_perkalian = 0;
+        $hasil_pertambahan = 0;
+        $hasil_logic = null;
+        foreach ($hasil_diagnosa as $key => $value) {
+            if (empty($predic_penyakit)) {
+                $predic_penyakit = $value['penyakit'];
+            } else {
+                if ($predic_penyakit == $value['penyakit']) {
+                    $hasil_perkalian = $hasil_perkalian + $value['gejala'][0]['hasil_perkalian'];
+                    $hasil_pertambahan = $hasil_pertambahan + $value['gejala'][0]['cf_role'];
+                } else {
+                    $hasil_logic[$value['penyakit']] = ['hasil_perkalian'=>$hasil_perkalian,'hasil_pertambahan'=>$hasil_pertambahan];
+                    $predic_penyakit = $value['penyakit'];
+                }
+            }
+        }
+        dd($hasil_logic);
+        $dgcombine = $dg1 / $dg2 ;
+        $hasildg = $dgcombine;
+        $final_logic =[];
+        $index= 0;
+        foreach ($hasil_logic as $key => $value) {
+            $final_logic[$index] = ['hasil_logic'=> $value['hasil_perkalian'] / $value['hasil_pertambahan'],'penyakit'=> $key];
+            $index++;
+        }
+        foreach ($final_logic as $key => $value) {
+            if($cf_max == null) {
+                $cf_max = [$value['hasil_logic'], $value['penyakit']];
+            } else {
+                $cf_max = ($hasildg > $cf_max[0]) 
+                    ? [$value['hasil_logic'] , $value['penyakit']] 
+                    : $cf_max;
+            }
+            $hasil_diagnosa[$final[0]->id]['hasildg'] = $hasildg;
+        }
         return [
-            'hasil_diagnosa' => $hasil_diagnosa,
+            'hasil_diagnosa' => $final_logic,
             'gejala_terpilih' => $gejala_terpilih,
             'cf_max' => $cf_max
         ];

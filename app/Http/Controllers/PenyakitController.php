@@ -98,12 +98,16 @@ class PenyakitController extends Controller
         $this->validate($request, [
             'kode'     => 'required|min:1',
             'name'     => 'required|min:1',
+            'deskripsi'     => 'required|min:1',
+            'solusi'     => 'required|min:1',
         ]);
 
         //get post by ID
         $post = Penyakit::where('kode', $kode)->update([
             'kode'     => $request->kode,
             'name'     => $request->name,
+            'deskipsi'     => $request->deskripsi,
+            'solusi'     => $request->solusi,
         ]);
 
         //redirect to index

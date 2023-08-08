@@ -40,7 +40,7 @@
                           </button>
                           @csrf
                           @method('DELETE')
-                          <button  type="submit" class="btn btn-tool">
+                          <button  type="submit" class="btn btn-tool toastrDefaultSuccess">
                             hapus
                             <i class="fas fa-trash"></i>
                           </button>
@@ -86,5 +86,10 @@
         
     @endif
   </script>
+                  <script>
+                    $('.toastrDefaultSuccess').click(function() {
+                      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+                    });
+                  </script>
 
 @endsection    

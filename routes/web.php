@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\KasusController;
-use App\Http\Controllers\UserChekingPenyakit;
+use App\Http\Controllers\DiagnosaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,11 +31,11 @@ Route::get('login', [LoginController::class, 'index'])->name('login')->middlewar
 Route::post('auth/login', [LoginController::class, 'loginPost'])->name('login.post')->middleware('guest');
 
 
-Route::get('home', [UserChekingPenyakit::class, 'index'])->name('home')->middleware('guest');
-Route::get('informasi', [UserChekingPenyakit::class, 'informasi'])->name('informasi')->middleware('guest');
+Route::get('home', [DiagnosaController::class, 'index'])->name('home');
+Route::get('informasi', [DiagnosaController::class, 'informasi'])->name('informasi')->middleware('guest');
 
-Route::get('konsultasi', [UserChekingPenyakit::class, 'konsultasi'])->name('konsultasi');
-Route::post('konsul', [UserChekingPenyakit::class, 'konsultasiPost'])->name('konsul.post');
+Route::get('konsultasi', [DiagnosaController::class, 'konsultasi'])->name('konsultasi');
+Route::post('konsul', [DiagnosaController::class, 'konsultasiPost'])->name('konsul.post');
 
 Route::get('/', function () {
     return redirect('home');
